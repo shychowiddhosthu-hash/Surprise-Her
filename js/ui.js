@@ -1118,7 +1118,6 @@ function createHeartPhotoCentered(idx, total, onComplete) {
         completed = true;
         onComplete && onComplete();
     };
-    photo.addEventListener('transitionend', finish, { once: true });
 
     document.body.appendChild(photo);
     heartPhotosCreated++;
@@ -1130,8 +1129,10 @@ function createHeartPhotoCentered(idx, total, onComplete) {
         photo.style.top = (centerY + targetY) + 'px';
     });
 
-    // Safety fallback in case a browser does not emit transitionend.
-    setTimeout(finish, 1800);
+    // The animation is 1.5s. Wait until it has definitely completed before
+    // counting this photo. This avoids transitionend firing early for one of
+    // the multiple transitioned properties (opacity/transform/position).
+    setTimeout(finish, 1600);
     return true;
 }
 
