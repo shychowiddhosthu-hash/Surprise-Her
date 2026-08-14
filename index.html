@@ -41,7 +41,7 @@
 .pavi-loading-title{font-size:clamp(24px,6vw,38px);line-height:1.2;font-weight:400;font-family:'Dancing Script','Brush Script MT','Lucida Handwriting','Comic Sans MS',cursive}
 .pavi-loading-sub{margin-top:10px;font-size:clamp(18px,4vw,24px);line-height:2.2;font-weight:400;font-family:'Dancing Script','Brush Script MT','Lucida Handwriting','Comic Sans MS',cursive;color:#2c1810}
 @keyframes pSpin{to{transform:rotate(360deg)}}@keyframes pSpinR{to{transform:rotate(-360deg)}}@keyframes pPulse{50%{transform:scale(.55);opacity:.5}}
-.music-control{z-index:100001!important}
+.music-control{z-index:300001!important}
 </style>
 
 <style id="combined-handoff">
@@ -326,7 +326,7 @@ window.LOCAL_CUSTOMIZATION = {
       <div class="handoff-sub">Get ready.</div>
     </div>
   </div>
-  <iframe id="interactive-frame" title="Birthday interactive surprise" src="interactive-birthday/index.html"></iframe>
+  <iframe id="interactive-frame" title="Birthday interactive surprise" src="about:blank"></iframe>
 </div>
 <script id="combined-handoff-script">
 (function(){
@@ -339,6 +339,8 @@ window.LOCAL_CUSTOMIZATION = {
     // IMPORTANT: Pavi's BGM belongs to the parent page and must continue.
     // The second experience is isolated in an iframe, preventing CSS/JS conflicts.
     var base='interactive-birthday/index.html';
+    // Load the second experience only after the explicit surprise-button tap.
+    // It is never loaded in the background, so its scripts cannot interfere early.
     frame.src=base+'?run='+Date.now();
     stage.setAttribute('aria-hidden','false');
     stage.style.display='block';
