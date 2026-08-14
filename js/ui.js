@@ -1509,7 +1509,21 @@ book.addEventListener('contextmenu', (e) => {
 
 const musicControl = document.getElementById('musicControl');
 const birthdayAudio = document.getElementById('birthdayAudio');
-let isPlaying = false;
+document.addEventListener('touchstart', function unlockAudio() {
+    birthdayAudio.muted = true;
+
+    birthdayAudio.play()
+        .then(function () {
+            birthdayAudio.pause();
+            birthdayAudio.currentTime = 0;
+            birthdayAudio.muted = false;
+        })
+        .catch(function () {
+            birthdayAudio.muted = false;
+        });
+
+}, { once: true });
+let isPlaying = true;
 
 // The Pavi BGM is one continuous soundtrack for the entire experience.
 // It starts at countdown and is intentionally NOT stopped/reset at the handoff.
